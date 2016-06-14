@@ -15,7 +15,7 @@
                     keepSpecialComments: 1,
                     report: 'gzip',
                     aggressiveMerging: true,
-                    processImport: false
+                    processImport: true
                 },
                 target: {
                     files: [
