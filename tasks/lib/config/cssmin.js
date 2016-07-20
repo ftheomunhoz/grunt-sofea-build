@@ -6,9 +6,7 @@
     // -------------------
 
     module.exports = function (instance) {
-        var path = require('path'),
-            data = instance.data,
-            options = instance.options();
+        var data = instance.data;
 
         return data.cssmin || {
                 options: {
@@ -16,17 +14,6 @@
                     report: 'gzip',
                     aggressiveMerging: true,
                     processImport: true
-                },
-                target: {
-                    files: [
-                        {
-                            src: [path.join(options.cwd, 'assets', 'styles', '**/*.css')],
-                            dest: path.join(options.cwd, options.dest, 'assets', 'styles/app.css')
-                        }, {
-                            src: [path.join('.tmp', 'styles/less.css')],
-                            dest: path.join(options.cwd, options.dest, 'assets', 'styles/layout.css')
-                        }
-                    ]
                 }
             };
     };

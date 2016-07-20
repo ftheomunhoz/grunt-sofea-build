@@ -13,12 +13,7 @@
 
 		return {
 			loadLocalNpmTask : function(dependency) {
-				var parentcwd = process.cwd();
-				process.chdir(path.join(__dirname, '../../..'));
-
 				grunt.loadNpmTasks(dependency);
-
-				process.chdir(parentcwd);
 
 				var argsLen = arguments.length;
 				if (argsLen > 1) {

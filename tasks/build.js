@@ -29,14 +29,17 @@ module.exports = function (grunt) {
             'usemin',
             'less',
             'cssmin',
-            'copy',
-            'htmlmin:index',
+            'copy:json',
+            'copy:main',
+            'copy:config',
             'concat:generated',
             'ngAnnotate',
             'uglify:generated',
             'rev',
             'copy:version',
             'string-replace',
+            'copy:index',
+            'htmlmin:index',
             'clean:temp'];
 
         var runTasks = [];
@@ -49,6 +52,13 @@ module.exports = function (grunt) {
                 continue;
             }
             runTasks.push(tasks[i]);
+        }
+
+        var copyObj = grunt.config.data["build"][this.target].copy;
+        if (copyObj !== undefined) {
+            for (var copyTarget in copyObj) {
+                runTasks.push("copy:" + copyTarget);
+            }
         }
 
         grunt.task.run(runTasks);

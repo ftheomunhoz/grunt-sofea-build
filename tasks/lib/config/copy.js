@@ -95,12 +95,14 @@
                         var folderPath = path.join(options.cwd, options.dest, 'assets', 'styles');
                         var fileList = fs.readdirSync(folderPath);
                         var styleContent = [];
+                        var inlineStyle = options.inlineStyle;
 
                         for (var i = 0, len = fileList.length; i < len; i++) {
                             if (fileList[i].indexOf("css") >= 0) {
                                 var filePath = path.join(folderPath, fileList[i]);
 
                                 styleContent.push({
+                                    inline: (inlineStyle.indexOf(fileList[i]) >= 0),
                                     name: fileList[i],
                                     date: fs.statSync(filePath).ctime
                                 });
@@ -111,6 +113,11 @@
                         var styleHtml = '';
 
                         for (var i = 0, len = styleContent.length; i < len; i++) {
+                            if (styleContent[i].inline) {
+                                styleHtml = styleHtml + '<style>' + fs.readFileSync(path.join(folderPath, styleContent[i].name)) + '</style>';
+                                continue;
+                            }
+
                             styleHtml = styleHtml + '<link rel="stylesheet" href="assets/styles/' + styleContent[i].name + '">';
                         }
 
@@ -119,7 +126,7 @@
                             .replace(/(<link).*(>)/g, '')
                             .replace('</head>', styleHtml + '</head>')
                             .replace(/(ng-app=)('|")(.*)('|")/g, '')
-                            .concat('<script data-main="scripts/dependencies.js" src="scripts/require.js"></script>');
+                            .concat('<script data-main="scripts/dependencies.js">' + fs.readFileSync(path.join(options.cwd, options.dest, 'scripts', 'require.js')) + '</script>');
                     }
                 }
             }
@@ -129,6 +136,9 @@
             for (var key in data.copy) {
                 if (!copy.hasOwnProperty(key)) {
                     copy[key] = data.copy[key];
+                }
+                else {
+                    copy
                 }
             }
         }
