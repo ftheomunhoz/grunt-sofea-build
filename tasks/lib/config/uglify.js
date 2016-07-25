@@ -14,7 +14,8 @@
                     mangle: uglifyFlag,
                     beautify: !uglifyFlag,
                     compress: uglifyFlag,
-                    preserveComments: !uglifyFlag
+                    preserveComments: !uglifyFlag,
+					ASCIIOnly: true
                 }
             };
     };
