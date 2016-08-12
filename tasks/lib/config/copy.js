@@ -92,6 +92,10 @@
                 ],
                 options: {
                     process: function (content) {
+                        if (content.indexOf("<body") < 0) {
+                            return content;
+                        }
+
                         var folderPath = path.join(options.cwd, options.dest, 'assets', 'styles');
                         var fileList = fs.readdirSync(folderPath);
                         var styleContent = [];

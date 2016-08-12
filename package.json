@@ -1,7 +1,8 @@
 {
-  "name": "grunt-sofea-build",
+  "name": "grunt-acn-build",
   "description": "Build AngularJS projects",
-  "version": "1.2.1",
+  "version": "1.2.2",
+  "private": "true",
   "license": "MIT",
   "dependencies": {
     "grunt": "1.0.1",
